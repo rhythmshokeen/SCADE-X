@@ -1,0 +1,47 @@
+# =============================================================================
+# SCADE-X: Unified & Hardened Dependency Manifest
+# =============================================================================
+
+# Data Manipulation & Analysis
+pandas>=2.2.3
+numpy>=1.26.4
+scipy>=1.15.2
+polars
+pyarrow
+
+# Process Mining
+pm4py>=2.7.22
+
+# Machine Learning & Deep Learning
+scikit-learn>=1.6.1
+torch
+torchvision
+transformers
+accelerate
+sentence-transformers
+xgboost
+lightgbm
+shap
+joblib
+
+# Graph Analytics & Database
+networkx
+neo4j
+
+# Web Apps & APIs
+flask>=3.0.0
+fastapi
+uvicorn
+pydantic
+streamlit
+plotly>=6.0.0
+
+# Visualization
+matplotlib
+seaborn
+
+# Utilities & Environments
+python-dotenv
+pyyaml
+tqdm
+jupyter

@@ -1,0 +1,27 @@
+# SCADE-X Core Configuration
+pipeline:
+  run_astra: true
+  run_scade: true
+  run_benchmarks: true
+  debug_mode: false
+
+paths:
+  input_log: "data/raw/synthetic_supply_chain.csv"
+  security_log: "data/raw/security.csv"
+  output_dir: "outputs"
+  intermediate_dir: "data/intermediate"
+  processed_dir: "data/processed"
+
+thresholds:
+  scade_anomaly: 0.875
+  astra_anomaly: 0.75
+  fusion_severity: 0.65
+
+resilience:
+  enable_graph_propagation: true
+  enable_security_amplification: true
+
+benchmarking:
+  run_ablation: true
+  run_robustness: true
+  generate_visualizations: true

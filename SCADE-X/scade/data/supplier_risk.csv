@@ -1,0 +1,14 @@
+supplier_id,flagged_cases,attack_types,risk_flag
+SUP-006,2,"['duplicate_payment', 'unknown_anomaly']",True
+SUP-007,2,['unknown_anomaly'],True
+SUP-010,2,['unknown_anomaly'],True
+SUP-012,2,"['credential_compromise', 'unknown_anomaly']",True
+SUP-013,2,"['payment_fraud', 'unknown_anomaly']",True
+SUP-014,2,"['credential_compromise', 'unknown_anomaly']",True
+SUP-015,2,"['payment_fraud', 'unknown_anomaly']",True
+SUP-001,1,['duplicate_payment'],False
+SUP-004,1,['unknown_anomaly'],False
+SUP-005,1,['unknown_anomaly'],False
+SUP-008,1,['unknown_anomaly'],False
+SUP-025,1,['credential_compromise'],False
+SUP-030,1,['credential_compromise'],False

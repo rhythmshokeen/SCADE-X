@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Activity Setup — SCADE{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Activity Setup</h1>
+  <p class="subtitle">
+    Map your ERP's event names to the standard procurement steps.
+    Add every name your system uses for each step — the engine will recognise all of them.
+  </p>
+</div>
+
+<div id="save-banner" class="save-banner" style="display:none">
+  ✓ Saved
+</div>
+
+<div id="activity-list"></div>
+
+<div style="margin-top:28px;display:flex;gap:12px;align-items:center">
+  <button class="btn-primary" onclick="saveAll()">Save Changes</button>
+  <button class="btn-outline" onclick="resetToDefaults()">Reset to Defaults</button>
+  <span id="save-status" style="font-size:13px;color:var(--muted)"></span>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/activity_setup.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,40 @@
+2026-05-27 13:27:44,602 | INFO     | SCADE-X              | 🚀 Initializing SCADE-X Run: SCADEX-b44b5723
+2026-05-27 13:27:44,602 | INFO     | SCADE-X              | === Starting Stage: Input Validation ===
+2026-05-27 13:27:44,602 | INFO     | SCADE-X              | === Completed Stage: Input Validation (Duration: 0.00s) ===
+2026-05-27 13:27:44,602 | INFO     | SCADE-X              | === Starting Stage: Environment Validation ===
+2026-05-27 13:27:44,602 | INFO     | SCADE-X              | Starting automated environment dependency validation...
+2026-05-27 13:27:48,381 | INFO     | SCADE-X              | ✅ All core environment dependencies are successfully validated.
+2026-05-27 13:27:48,381 | INFO     | SCADE-X              | === Completed Stage: Environment Validation (Duration: 3.78s) ===
+2026-05-27 13:27:48,381 | INFO     | SCADE-X              | === Starting Stage: ASTRA Execution ===
+2026-05-27 13:27:48,425 | INFO     | SCADE-X              | === Completed Stage: ASTRA Execution (Duration: 0.04s) ===
+2026-05-27 13:27:48,425 | INFO     | SCADE-X              | === Starting Stage: SCADE Execution ===
+2026-05-27 13:27:49,462 | INFO     | SCADE-X              | === Completed Stage: SCADE Execution (Duration: 1.04s) ===
+2026-05-27 13:27:49,462 | INFO     | SCADE-X              | === Starting Stage: Schema Normalization ===
+2026-05-27 13:27:49,509 | INFO     | SCADE-X              | === Completed Stage: Schema Normalization (Duration: 0.05s) ===
+2026-05-27 13:27:49,509 | INFO     | SCADE-X              | === Starting Stage: Resilience Intelligence ===
+2026-05-27 13:27:51,953 | INFO     | SCADE-X              | === Completed Stage: Resilience Intelligence (Duration: 2.44s) ===
+2026-05-27 13:27:51,953 | INFO     | SCADE-X              | === Starting Stage: Intelligence Fusion ===
+2026-05-27 13:27:52,424 | INFO     | SCADE-X              | === Completed Stage: Intelligence Fusion (Duration: 0.47s) ===
+2026-05-27 13:27:52,424 | INFO     | SCADE-X              | === Starting Stage: Explainability Generation ===
+2026-05-27 13:27:53,245 | INFO     | SCADE-X              | === Completed Stage: Explainability Generation (Duration: 0.82s) ===
+2026-05-27 13:27:53,245 | INFO     | SCADE-X              | === Starting Stage: Benchmarking ===
+2026-05-27 13:27:54,837 | INFO     | SCADE-X              | === Completed Stage: Benchmarking (Duration: 1.59s) ===
+2026-05-27 13:27:54,838 | INFO     | SCADE-X              | === Starting Stage: Artifact Export ===
+2026-05-27 13:27:54,839 | INFO     | SCADE-X              | Exported scadex_final_intelligence.csv to final_intelligence/
+2026-05-27 13:27:54,841 | INFO     | SCADE-X              | Exported resilience_intelligence.csv to resilience/
+2026-05-27 13:27:54,844 | INFO     | SCADE-X              | Exported scadex_explanations.csv to explanations/
+2026-05-27 13:27:54,844 | INFO     | SCADE-X              | Exported scadex_benchmark.csv to benchmark/
+2026-05-27 13:27:54,844 | INFO     | SCADE-X              | === Completed Stage: Artifact Export (Duration: 0.01s) ===
+2026-05-27 13:27:54,844 | INFO     | SCADE-X              | === SCADE-X Runtime Summary ===
+2026-05-27 13:27:54,844 | INFO     | SCADE-X              | Stage: Input Validation     | Status: COMPLETED  | Time: 0.00s
+2026-05-27 13:27:54,844 | INFO     | SCADE-X              | Stage: Environment Validation | Status: COMPLETED  | Time: 3.78s
+2026-05-27 13:27:54,844 | INFO     | SCADE-X              | Stage: ASTRA Execution      | Status: COMPLETED  | Time: 0.04s
+2026-05-27 13:27:54,844 | INFO     | SCADE-X              | Stage: SCADE Execution      | Status: COMPLETED  | Time: 1.04s
+2026-05-27 13:27:54,844 | INFO     | SCADE-X              | Stage: Schema Normalization | Status: COMPLETED  | Time: 0.05s
+2026-05-27 13:27:54,844 | INFO     | SCADE-X              | Stage: Resilience Intelligence | Status: COMPLETED  | Time: 2.44s
+2026-05-27 13:27:54,844 | INFO     | SCADE-X              | Stage: Intelligence Fusion  | Status: COMPLETED  | Time: 0.47s
+2026-05-27 13:27:54,844 | INFO     | SCADE-X              | Stage: Explainability Generation | Status: COMPLETED  | Time: 0.82s
+2026-05-27 13:27:54,844 | INFO     | SCADE-X              | Stage: Benchmarking         | Status: COMPLETED  | Time: 1.59s
+2026-05-27 13:27:54,845 | INFO     | SCADE-X              | Stage: Artifact Export      | Status: COMPLETED  | Time: 0.01s
+2026-05-27 13:27:54,845 | INFO     | SCADE-X              | Total Pipeline Execution Time: 10.24s
+2026-05-27 13:27:54,845 | INFO     | SCADE-X              | ✅ SCADE-X Pipeline Execution Completed Successfully.

@@ -1,0 +1,7 @@
+perspective,precision,recall,f1,false_positives,false_negatives
+Control Flow only,1.0,1.0,1.0,0,0
+Time only,1.0,0.05,0.0952,0,38
+Resource only,1.0,0.25,0.4,0,30
+Amount only,1.0,0.25,0.4,0,30
+Weighted Average,1.0,0.525,0.6885,0,19
+Composite (min),1.0,1.0,1.0,0,0

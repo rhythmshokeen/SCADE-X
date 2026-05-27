@@ -1,0 +1,220 @@
+{% extends "base.html" %}
+{% block title %}Case {{ case_id }} — SCADE{% endblock %}
+
+{% block content %}
+<div class="page-header" style="display:flex;align-items:center;gap:16px">
+  <a href="/" class="back-link">← Dashboard</a>
+  <div>
+    <h1>Case <span id="case-title">{{ case_id }}</span></h1>
+    <p class="subtitle" id="case-subtitle">Loading...</p>
+  </div>
+</div>
+
+<div id="alert-banner" class="alert-banner" style="display:none"></div>
+
+<div class="kpi-grid" id="score-kpi-grid" style="grid-template-columns:repeat(5,1fr)">
+  <div class="kpi-card">
+    <span class="kpi-label">Composite Score</span>
+    <span class="kpi-value" id="kpi-composite">—</span>
+  </div>
+  <div class="kpi-card">
+    <span class="kpi-label">Control Flow</span>
+    <span class="kpi-value" id="kpi-cf">—</span>
+  </div>
+  <div class="kpi-card">
+    <span class="kpi-label">Time</span>
+    <span class="kpi-value" id="kpi-time">—</span>
+  </div>
+  <div class="kpi-card">
+    <span class="kpi-label">Resource</span>
+    <span class="kpi-value" id="kpi-resource">—</span>
+  </div>
+  <div class="kpi-card">
+    <span class="kpi-label">Amount</span>
+    <span class="kpi-value" id="kpi-amount">—</span>
+  </div>
+  <div class="kpi-card" id="kpi-security-card" style="display:none">
+    <span class="kpi-label">Security</span>
+    <span class="kpi-value" id="kpi-security">—</span>
+  </div>
+</div>
+
+<div class="charts-row">
+  <!-- Radar chart — the visual centrepiece -->
+  <div class="chart-card" style="display:flex;align-items:center;justify-content:center">
+    <div style="width:340px">
+      <h2>Perspective Scores</h2>
+      <canvas id="radarChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Attack detail card -->
+  <div class="chart-card">
+    <h2>Detection Detail</h2>
+    <div id="attack-card">
+      <div class="detail-row">
+        <span class="detail-label">Matched Pattern</span>
+        <span id="d-pattern" class="detail-value">—</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Confidence</span>
+        <span id="d-confidence" class="detail-value">—</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Risk Level</span>
+        <span id="d-risk" class="detail-value">—</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Fast Steps</span>
+        <span id="d-fast" class="detail-value">—</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Wrong Role Events</span>
+        <span id="d-role" class="detail-value">—</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Duplicate Payment</span>
+        <span id="d-dup" class="detail-value">—</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Amount Drift</span>
+        <span id="d-drift" class="detail-value">—</span>
+      </div>
+
+      <div class="info-block" id="d-description" style="margin-top:16px"></div>
+      <div class="warn-block" id="d-action" style="margin-top:10px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Security signals panel — shown only when security log was used -->
+<div id="security-panel" class="section" style="display:none">
+  <h2>Security Context Signals</h2>
+  <div id="security-signals-list"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const CASE_ID = {{ case_id | tojson }};
+
+async function loadCase() {
+  const res  = await fetch(`/api/case/${CASE_ID}`);
+  const data = await res.json();
+  if (data.error) { document.getElementById("case-subtitle").textContent = data.error; return; }
+
+  // Header
+  document.getElementById("case-subtitle").textContent =
+    data.flagged ? `⚠ Anomaly detected — ${data.matched_attack.replace(/_/g," ")}` : "No anomaly detected";
+
+  // Alert banner
+  if (data.flagged) {
+    const banner = document.getElementById("alert-banner");
+    banner.style.display = "block";
+    banner.className     = `alert-banner alert-${(data.risk_level||"medium").toLowerCase()}`;
+    banner.textContent   = `${data.risk_level} RISK — ${(data.attack_description||"").replace(/_/g," ")}`;
+  }
+
+  // KPI cards
+  const scoreColor = s => s < 0.5 ? "#ef4444" : s < 0.875 ? "#f59e0b" : "#525252";
+  const setKpi = (id, val) => {
+    const el = document.getElementById(id);
+    el.textContent = val.toFixed(3);
+    el.style.color = scoreColor(val);
+  };
+  setKpi("kpi-composite", data.composite_score);
+  setKpi("kpi-cf",        data.cf_score);
+  setKpi("kpi-time",      data.time_score);
+  setKpi("kpi-resource",  data.resource_score);
+  setKpi("kpi-amount",    data.amount_score);
+
+  const hasSecurity = data.security_score != null;
+  if (hasSecurity) {
+    document.getElementById("kpi-security-card").style.display = "";
+    document.getElementById("score-kpi-grid").style.gridTemplateColumns = "repeat(6,1fr)";
+    setKpi("kpi-security", data.security_score);
+  }
+
+  // Radar chart
+  const badgeClass = data.risk_level === "CRITICAL" ? "badge-critical"
+                   : data.risk_level === "HIGH"     ? "badge-high" : "badge-medium";
+
+  const radarLabels = ["Control Flow", "Time", "Resource", "Amount"];
+  const radarData   = [data.cf_score, data.time_score, data.resource_score, data.amount_score];
+  if (hasSecurity) { radarLabels.push("Security"); radarData.push(data.security_score); }
+
+  new Chart(document.getElementById("radarChart"), {
+    type: "radar",
+    data: {
+      labels: radarLabels,
+      datasets: [
+        {
+          label: "This case",
+          data: radarData,
+          backgroundColor: "rgba(239,68,68,0.15)",
+          borderColor:     "#ef4444",
+          borderWidth: 2,
+          pointBackgroundColor: "#ef4444",
+        },
+        {
+          label: "Normal baseline",
+          data: radarLabels.map(() => 1),
+          backgroundColor: "rgba(34,197,94,0.08)",
+          borderColor:     "#22c55e",
+          borderWidth: 1,
+          borderDash: [4, 4],
+          pointBackgroundColor: "#22c55e",
+        }
+      ]
+    },
+    options: {
+      scales: {
+        r: {
+          min: 0, max: 1,
+          ticks: { stepSize: 0.25, color: "#404040", backdropColor: "transparent" },
+          grid:  { color: "#1e1e1e" },
+          angleLines: { color: "#1e1e1e" },
+          pointLabels: { color: "#848484", font: { size: 12 } },
+        }
+      },
+      plugins: { legend: { position: "bottom", labels: { color: "#525252", padding: 14 } } }
+    }
+  });
+
+  // Detail card
+  document.getElementById("d-pattern").textContent    = (data.matched_attack||"—").replace(/_/g," ");
+  document.getElementById("d-confidence").textContent = data.confidence || "—";
+  document.getElementById("d-risk").innerHTML =
+    `<span class="badge ${badgeClass}">${data.risk_level || "—"}</span>`;
+  document.getElementById("d-fast").textContent  = data.n_fast_steps   || 0;
+  document.getElementById("d-role").textContent  = data.wrong_role_count || 0;
+  document.getElementById("d-dup").textContent   = data.duplicate_payment ? "Yes" : "No";
+  document.getElementById("d-drift").textContent =
+    data.amount_drift_pct ? `${data.amount_drift_pct.toFixed(1)}%` : "0.0%";
+
+  if (data.attack_description && data.attack_description !== "—")
+    document.getElementById("d-description").textContent = `What happened: ${data.attack_description}`;
+  if (data.recommended_action && data.recommended_action !== "—")
+    document.getElementById("d-action").textContent = `Action: ${data.recommended_action}`;
+
+  // Security signals panel
+  let signals = data.security_signals;
+  if (typeof signals === "string") {
+    try { signals = JSON.parse(signals.replace(/'/g, '"')); } catch { signals = []; }
+  }
+  if (Array.isArray(signals) && signals.length > 0) {
+    const panel = document.getElementById("security-panel");
+    const list  = document.getElementById("security-signals-list");
+    panel.style.display = "";
+    list.innerHTML = signals.map(s =>
+      `<div class="security-signal-item">
+        <span class="security-signal-icon">⚠</span>
+        <span>${s}</span>
+      </div>`
+    ).join("");
+  }
+}
+
+loadCase();
+</script>
+{% endblock %}

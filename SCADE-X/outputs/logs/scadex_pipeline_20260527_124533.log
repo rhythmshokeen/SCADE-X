@@ -1,0 +1,20 @@
+2026-05-27 12:45:33,932 | INFO     | SCADE-X              | 🚀 Initializing SCADE-X Run: SCADEX-0e1e45bf
+2026-05-27 12:45:33,932 | INFO     | SCADE-X              | === Starting Stage: Input Validation ===
+2026-05-27 12:45:33,932 | INFO     | SCADE-X              | === Completed Stage: Input Validation (Duration: 0.00s) ===
+2026-05-27 12:45:33,932 | INFO     | SCADE-X              | === Starting Stage: Environment Validation ===
+2026-05-27 12:45:33,932 | INFO     | SCADE-X              | Starting automated environment dependency validation...
+2026-05-27 12:45:33,932 | WARNING  | SCADE-X              | Missing dependency: pm4py (pip package: pm4py)
+2026-05-27 12:45:36,064 | WARNING  | SCADE-X              | Missing dependency: flask (pip package: flask)
+2026-05-27 12:45:36,064 | ERROR    | SCADE-X              | ============================================================
+2026-05-27 12:45:36,064 | ERROR    | SCADE-X              | CRITICAL ENVIRONMENT VALIDATION FAILURE
+2026-05-27 12:45:36,064 | ERROR    | SCADE-X              | ============================================================
+2026-05-27 12:45:36,064 | ERROR    | SCADE-X              | The following required dependencies are missing: pm4py, flask
+2026-05-27 12:45:36,064 | ERROR    | SCADE-X              | 
+2026-05-27 12:45:36,064 | ERROR    | SCADE-X              | >>> SUGGESTED FIX:
+2026-05-27 12:45:36,064 | ERROR    | SCADE-X              |     Run the following command to install the missing dependencies:
+2026-05-27 12:45:36,064 | ERROR    | SCADE-X              |     pip install pm4py flask
+2026-05-27 12:45:36,064 | ERROR    | SCADE-X              |     Or install the complete manifest via:
+2026-05-27 12:45:36,064 | ERROR    | SCADE-X              |     pip install -r requirements.txt
+2026-05-27 12:45:36,064 | ERROR    | SCADE-X              | ============================================================
+2026-05-27 12:45:36,064 | ERROR    | SCADE-X              | !!! Stage Failed: Environment Validation !!!
+2026-05-27 12:45:36,064 | ERROR    | SCADE-X              | Error: Environment validation failed. Missing packages: pm4py, flask. Suggested fix: pip install pm4py flask

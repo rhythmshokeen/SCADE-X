@@ -1,0 +1,34 @@
+{
+  "Create Purchase Requisition": [
+    "ME51N", "Create Requisition", "PR Created", "Requisition Open",
+    "Purchase Requisition Created", "Requisition Created"
+  ],
+  "Manager Approval": [
+    "ME54N", "PR Approved", "Approve Requisition", "Approval Complete",
+    "Purchase Requisition Approved", "Requisition Approved", "Approve PR"
+  ],
+  "Send RFQ to Supplier": [
+    "ME41", "Create RFQ", "Send RFQ", "RFQ Sent", "Request for Quotation Sent",
+    "Issue RFQ", "RFQ Created"
+  ],
+  "Receive Supplier Quote": [
+    "ME47", "Receive Quote", "Quote Received", "Supplier Quote Received",
+    "Record Quotation", "ME48", "Quotation Received"
+  ],
+  "Create Purchase Order": [
+    "ME21N", "Create PO", "PO Created", "Purchase Order Created",
+    "Issue Purchase Order", "PO Issued", "Create Order"
+  ],
+  "Goods Receipt": [
+    "MIGO", "Goods Received", "GR Posted", "Record GR", "Receive Goods",
+    "Good Receipt", "Goods Receipt Posted", "MIGO_GR"
+  ],
+  "Invoice Verification": [
+    "MIRO", "Verify Invoice", "Invoice Received", "Post Invoice",
+    "Invoice Posted", "Invoice Verification", "3-Way Match"
+  ],
+  "Payment Release": [
+    "F110", "Release Payment", "Payment Approved", "Pay Invoice",
+    "Payment Posted", "F-53", "Payment Released", "Approve Payment"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+    "case_id": "PO02115",
+    "threat_severity": "HIGH",
+    "escalation_priority": "STANDARD",
+    "recommended_action": "MONITOR",
+    "root_cause": "Latent Behavioral Sequence Anomaly",
+    "secondary_causes": [],
+    "behavioral_explanation": "Transformer sequence analysis detected highly abnormal latent behavior (Score: 1.00).",
+    "process_explanation": "SCADE detected standard process conformance.",
+    "security_explanation": "No security context provided.",
+    "resilience_explanation": "Systemic Vulnerability: 0.00. Cascading propagation risk: 0.00. Supplier dependency: 0.00.",
+    "recommended_action_reason": "Anomaly severity is low. The risk does not justify immediate intervention. Suggest adding to routine audit review.",
+    "confidence_reason": "Low Confidence (0.46): Subsystems yielded conflicting anomaly signals. Proceed with caution.",
+    "forensic_summary": "This HIGH severity case is primarily driven by 'Latent Behavioral Sequence Anomaly'. System recommends MONITOR."
+}

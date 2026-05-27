@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block title %}Upload Data — SCADE{% endblock %}
+
+{% block content %}
+
+<!-- How it works -->
+<div class="page-header">
+  <h1>Upload Your Data</h1>
+  <p class="subtitle">Bring in your own procurement event log and SCADE will analyse it automatically.</p>
+</div>
+
+<div class="how-it-works">
+  <div class="hiw-step">
+    <div class="hiw-num">1</div>
+    <div class="hiw-text">
+      <strong>Upload a CSV or Excel file</strong>
+      <span>One row per event. Each row is one step of one purchase order — e.g. "Manager Approval happened on this date for PO-001".</span>
+    </div>
+  </div>
+  <div class="hiw-arrow">→</div>
+  <div class="hiw-step">
+    <div class="hiw-num">2</div>
+    <div class="hiw-text">
+      <strong>Map your columns</strong>
+      <span>Tell SCADE which of your columns means "case ID", "activity name", and "timestamp". Everything else is optional but improves accuracy.</span>
+    </div>
+  </div>
+  <div class="hiw-arrow">→</div>
+  <div class="hiw-step">
+    <div class="hiw-num">3</div>
+    <div class="hiw-text">
+      <strong>SCADE learns &amp; scores</strong>
+      <span>The engine learns what your normal process looks like, then scores every case. Anything suspicious is flagged with an explanation.</span>
+    </div>
+  </div>
+  <div class="hiw-arrow">→</div>
+  <div class="hiw-step">
+    <div class="hiw-num">4</div>
+    <div class="hiw-text">
+      <strong>Review the dashboard</strong>
+      <span>See which cases deviated, what pattern they match, and what action to take — all in the dashboard.</span>
+    </div>
+  </div>
+</div>
+
+<!-- Data expectations -->
+<details class="info-collapsible">
+  <summary>What does my file need to look like?</summary>
+  <div class="info-body">
+    <p>Your file should have <strong>one row per step per purchase order</strong>. The minimum three columns are:</p>
+    <table class="info-table">
+      <tr><th>Column</th><th>What it means</th><th>Example value</th></tr>
+      <tr><td><code>case_id</code></td><td>Purchase order number — same for all steps of one PO</td><td>PO-2024-00123</td></tr>
+      <tr><td><code>activity</code></td><td>The name of the step that happened</td><td>Manager Approval</td></tr>
+      <tr><td><code>timestamp</code></td><td>When it happened</td><td>2024-03-15 09:42:00</td></tr>
+    </table>
+    <p style="margin-top:12px">Optional columns that make detection more accurate:</p>
+    <table class="info-table">
+      <tr><th>Column</th><th>What it helps detect</th></tr>
+      <tr><td><code>user</code></td><td>Segregation of duties violations (wrong person doing a step)</td></tr>
+      <tr><td><code>amount</code></td><td>Invoice amount drift and duplicate payments</td></tr>
+      <tr><td><code>supplier_id</code></td><td>Suppliers involved in multiple anomalous orders</td></tr>
+    </table>
+    <p style="margin-top:12px;color:var(--muted);font-size:13px">
+      Column names don't need to match exactly — SCADE will suggest mappings automatically below.
+      If your ERP uses different activity names, configure them in
+      <a href="/activity-setup" style="color:var(--accent)">Activity Setup</a> first.
+    </p>
+  </div>
+</details>
+
+<!-- Drop zone -->
+<div id="drop-zone" class="drop-zone" onclick="document.getElementById('file-input').click()">
+  <div class="drop-icon">↑</div>
+  <div class="drop-label">Drop your CSV or Excel file here</div>
+  <div class="drop-sub">or click to browse — .csv, .xlsx, .xls supported</div>
+  <input type="file" id="file-input" accept=".csv,.xlsx,.xls" style="display:none" onchange="handleFile(this.files[0])"/>
+</div>
+
+<div id="file-info" class="file-info" style="display:none">
+  <span id="file-name"></span>
+  <span id="file-rows" style="color:var(--muted)"></span>
+</div>
+
+<!-- Column mapping — shown after upload -->
+<div id="mapping-section" style="display:none">
+  <div class="section-title">Map Your Columns</div>
+  <p class="section-sub">
+    SCADE detected the columns in your file. Confirm which one represents each field.
+    <strong>Case ID, Activity, and Timestamp are required.</strong>
+  </p>
+  <div class="mapping-grid" id="mapping-grid"></div>
+
+  <details style="margin-top:16px">
+    <summary style="cursor:pointer;color:var(--muted);font-size:13px">Show file preview (first 3 rows)</summary>
+    <div id="preview-table" style="overflow-x:auto;margin-top:10px"></div>
+  </details>
+
+  <!-- Optional security log upload -->
+  <div class="security-upload-section" id="security-section" style="margin-top:24px;padding:20px;background:rgba(99,102,241,0.04);border:1px solid var(--border);border-radius:var(--radius)">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <div>
+        <div style="font-size:13px;font-weight:600">Security Log <span style="background:rgba(99,102,241,0.15);color:var(--accent);font-size:10px;padding:1px 6px;border-radius:3px;font-weight:600;text-transform:uppercase;margin-left:6px">optional</span></div>
+        <div style="font-size:12px;color:var(--muted);margin-top:3px">Upload a SIEM / IAM event log to enable credential-compromise detection (Artifact 2).</div>
+      </div>
+      <div id="sec-status" style="font-size:12px;color:var(--muted)"></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <label class="btn-outline" style="cursor:pointer;font-size:12px;padding:6px 14px">
+        Choose security log
+        <input type="file" id="security-file-input" accept=".csv,.xlsx,.xls" style="display:none" onchange="handleSecurityFile(this.files[0])"/>
+      </label>
+      <span id="sec-filename" style="font-size:12px;color:var(--muted)">No file chosen — security perspective will be skipped</span>
+    </div>
+    <div style="font-size:11px;color:var(--muted);margin-top:8px">
+      Expected columns: <code style="background:var(--border);padding:1px 5px;border-radius:3px">timestamp</code>
+      <code style="background:var(--border);padding:1px 5px;border-radius:3px">user</code>
+      <code style="background:var(--border);padding:1px 5px;border-radius:3px">event_type</code>
+      <code style="background:var(--border);padding:1px 5px;border-radius:3px">ip_address</code>
+      — use <code style="background:var(--border);padding:1px 5px;border-radius:3px">data/test/mixed_anomalies_security.csv</code> to test
+    </div>
+  </div>
+
+  <div style="margin-top:20px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+    <button class="btn-primary" id="run-btn" onclick="runAnalysis()">Run Analysis</button>
+    <a href="/activity-setup" class="btn-outline">Configure Activity Names</a>
+    <a href="/api/download-guide" class="btn-ghost" download>↓ Download Setup Guide</a>
+  </div>
+</div>
+
+<!-- Progress -->
+<div id="progress-section" style="display:none">
+  <div class="progress-card">
+    <div class="progress-spinner"></div>
+    <div>
+      <div class="progress-label" id="progress-label">Running pipeline…</div>
+      <div class="progress-sub">This usually takes 5–30 seconds depending on file size.</div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}

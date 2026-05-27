@@ -1,0 +1,41 @@
+============================================================
+  CLASSIFICATION REPORT — Composite (min-score) @ 0.875
+============================================================
+              precision    recall  f1-score   support
+
+      Normal     1.0000    1.0000    1.0000       200
+     Anomaly     1.0000    1.0000    1.0000        40
+
+    accuracy                         1.0000       240
+   macro avg     1.0000    1.0000    1.0000       240
+weighted avg     1.0000    1.0000    1.0000       240
+
+────────────────────────────────────────────────────────────
+  PER-ATTACK-TYPE DETECTION
+────────────────────────────────────────────────────────────
+  payment_fraud             10/10 detected  avg_score=0.6000
+  approval_bypass           10/10 detected  avg_score=0.8214
+  duplicate_payment         10/10 detected  avg_score=0.0088
+  unauthorized_supplier     10/10 detected  avg_score=0.8571
+
+────────────────────────────────────────────────────────────
+  ABLATION STUDY  (F1 score at threshold 0.875)
+────────────────────────────────────────────────────────────
+  Control Flow only       P=1.0000  R=1.0000  F1=1.0000  FP=0  FN=0
+  Time only               P=1.0000  R=0.0500  F1=0.0952  FP=0  FN=38
+  Resource only           P=1.0000  R=0.2500  F1=0.4000  FP=0  FN=30
+  Amount only             P=1.0000  R=0.2500  F1=0.4000  FP=0  FN=30
+  Weighted Average        P=1.0000  R=0.5250  F1=0.6885  FP=0  FN=19
+  Composite (min)         P=1.0000  R=1.0000  F1=1.0000  FP=0  FN=0
+
+────────────────────────────────────────────────────────────
+  THRESHOLD SENSITIVITY
+────────────────────────────────────────────────────────────
+  Best F1=1.0000 at threshold=0.86
+  Chosen threshold=0.875  F1≈1.0000
+  Full curve saved → data/threshold_curve.csv
+
+────────────────────────────────────────────────────────────
+  CONFUSION MATRIX
+────────────────────────────────────────────────────────────
+  TN=200  FP=0  FN=0  TP=40

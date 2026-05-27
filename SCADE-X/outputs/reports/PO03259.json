@@ -1,0 +1,15 @@
+{
+    "case_id": "PO03259",
+    "threat_severity": "MEDIUM",
+    "escalation_priority": "STANDARD",
+    "recommended_action": "MONITOR",
+    "root_cause": "Normal Operational Variance",
+    "secondary_causes": [],
+    "behavioral_explanation": "ASTRA detected normal or minor behavioral deviations.",
+    "process_explanation": "SCADE detected standard process conformance.",
+    "security_explanation": "No security context provided.",
+    "resilience_explanation": "Systemic Vulnerability: 0.00. Cascading propagation risk: 0.00. Supplier dependency: 0.00.",
+    "recommended_action_reason": "Anomaly severity is low. The risk does not justify immediate intervention. Suggest adding to routine audit review.",
+    "confidence_reason": "Moderate Confidence (0.67): Partial signal agreement across subsystems.",
+    "forensic_summary": "This MEDIUM severity case is primarily driven by 'Normal Operational Variance'. System recommends MONITOR."
+}

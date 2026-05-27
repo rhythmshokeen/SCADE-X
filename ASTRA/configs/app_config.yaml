@@ -1,0 +1,26 @@
+project:
+  name: ASTRA
+  version: 0.1.0
+  environment: development
+
+paths:
+  raw_data: data/raw
+  processed_data: data/processed
+  models: models_store
+  logs: logs
+
+dataset:
+  active_file: synthetic_supply_chain.csv
+
+ml:
+  device: mps
+  random_seed: 42
+
+process_mining:
+  timestamp_column: timestamp
+  case_id_column: case_id
+  activity_column: activity
+
+dashboard:
+  host: localhost
+  port: 8501

@@ -1,0 +1,4 @@
+Model,accuracy,precision,recall,f1,roc_auc,pr_auc,fpr,fnr,calibration
+ASTRA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+SCADE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+SCADE-X,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0

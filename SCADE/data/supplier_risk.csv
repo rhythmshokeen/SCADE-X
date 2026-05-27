@@ -1,0 +1,9 @@
+supplier_id,flagged_cases,attack_types,risk_flag
+SUP-001,1,['duplicate_payment'],False
+SUP-006,1,['duplicate_payment'],False
+SUP-012,1,['credential_compromise'],False
+SUP-013,1,['payment_fraud'],False
+SUP-014,1,['credential_compromise'],False
+SUP-015,1,['payment_fraud'],False
+SUP-025,1,['credential_compromise'],False
+SUP-030,1,['credential_compromise'],False

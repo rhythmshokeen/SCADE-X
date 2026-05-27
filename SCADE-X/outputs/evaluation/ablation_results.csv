@@ -1,0 +1,8 @@
+Configuration,accuracy,precision,recall,f1,roc_auc,pr_auc,fpr,fnr,calibration
+SCADE-X full,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Without ASTRA,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Without SCADE,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Without resilience (vulnerability),0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Without graph propagation,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Without TTR/TTS (gap),0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Without graph + TTR/TTS,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0

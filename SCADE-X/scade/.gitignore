@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.pkl
+*.pnml
+*.png
+.env
+venv/
+.venv/
+data/results.csv
+data/supply_chain_log.csv
+models/
+.DS_Store

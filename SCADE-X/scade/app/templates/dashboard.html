@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Dashboard — SCADE{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>Anomaly Detection Dashboard</h1>
+  <p class="subtitle">Multi-perspective process conformance monitoring</p>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card">
+    <span class="kpi-label">Total Cases</span>
+    <span class="kpi-value" id="kpi-total">—</span>
+  </div>
+  <div class="kpi-card flagged">
+    <span class="kpi-label">Flagged Anomalies</span>
+    <span class="kpi-value" id="kpi-flagged">—</span>
+  </div>
+  <div class="kpi-card">
+    <span class="kpi-label">Avg Composite Score</span>
+    <span class="kpi-value" id="kpi-avg">—</span>
+  </div>
+  <div class="kpi-card critical">
+    <span class="kpi-label">Critical Risk</span>
+    <span class="kpi-value" id="kpi-critical">—</span>
+  </div>
+</div>
+
+<div class="charts-row">
+  <div class="chart-card">
+    <h2>Composite Score Distribution</h2>
+    <canvas id="scoreHistogram"></canvas>
+  </div>
+  <div class="chart-card">
+    <h2>Attack Pattern Breakdown</h2>
+    <canvas id="attackDonut"></canvas>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-header">
+    <h2 id="cases-title">Flagged Cases — Investigation Queue</h2>
+    <div class="section-actions">
+      <button class="btn-ghost" id="toggle-btn" onclick="toggleView()">Show All Cases</button>
+      <button class="btn-ghost" id="rerun-btn" onclick="rerunAnalysis()">↺ Re-run</button>
+      <a class="btn-ghost" href="/api/download-results" download="scade_results.csv">↓ Download CSV</a>
+    </div>
+  </div>
+  <div id="rerun-status" style="display:none;font-size:13px;color:var(--muted);margin-bottom:10px"></div>
+  <div id="pipeline-notice" class="notice" style="display:none">No results yet.</div>
+  <table class="cases-table" id="cases-table" style="display:none">
+    <thead>
+      <tr>
+        <th>Case ID</th>
+        <th>Composite Score</th>
+        <th>CF Score</th>
+        <th>Time Score</th>
+        <th>Resource Score</th>
+        <th>Amount Score</th>
+        <th id="th-security" style="display:none">Security Score</th>
+        <th>Attack Pattern</th>
+        <th>Risk</th>
+      </tr>
+    </thead>
+    <tbody id="cases-body"></tbody>
+  </table>
+  <div id="pagination" class="pagination" style="display:none">
+    <button class="btn-ghost" id="prev-btn" onclick="changePage(-1)">← Prev</button>
+    <span id="page-info" style="color:var(--muted);font-size:13px"></span>
+    <button class="btn-ghost" id="next-btn" onclick="changePage(1)">Next →</button>
+  </div>
+</div>
+
+<div class="charts-row">
+  <div class="chart-card">
+    <h2>Supplier Risk</h2>
+    <div id="supplier-risk-list" class="risk-list"></div>
+  </div>
+  <div class="chart-card">
+    <h2>User Risk</h2>
+    <div id="user-risk-list" class="risk-list"></div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}

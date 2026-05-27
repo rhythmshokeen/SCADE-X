@@ -1,0 +1,8 @@
+{
+  "case_id": "case_id",
+  "activity": "activity",
+  "timestamp": "timestamp",
+  "user": "user",
+  "amount": "amount",
+  "supplier_id": "supplier_id"
+}

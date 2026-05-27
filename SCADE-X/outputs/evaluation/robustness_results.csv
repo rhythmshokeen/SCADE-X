@@ -1,0 +1,5 @@
+Scenario,accuracy,precision,recall,f1,roc_auc,pr_auc,fpr,fnr,calibration
+Baseline (Clean Data),0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+ASTRA Subsystem Offline,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+30% Sparse Process Logs,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Noisy Behavioral Signals (+20%),0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
