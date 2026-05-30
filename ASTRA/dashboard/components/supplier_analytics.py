@@ -142,7 +142,7 @@ def show_supplier_analytics(
 • Highest risk supplier:
 **{top_supplier}**
 
-• ASTRA evaluates supplier
+• SCADE-X evaluates supplier
 risk using:
 
 - behavioral anomaly rate

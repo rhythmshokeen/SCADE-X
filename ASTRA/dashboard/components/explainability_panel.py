@@ -12,7 +12,7 @@ def show_explainability_panel(
     st.markdown(
         """
         This section displays
-        ASTRA's generated
+        SCADE-X's generated
         root cause analysis
         and explainability report.
         """

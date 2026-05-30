@@ -37,7 +37,7 @@ from components.explainability_panel import (
 # ------------------------------------------------
 
 st.set_page_config(
-    page_title="ASTRA Intelligence Dashboard",
+    page_title="SCADE-X Intelligence Platform",
     page_icon="🛰️",
     layout="wide"
 )
@@ -47,13 +47,13 @@ st.set_page_config(
 # ------------------------------------------------
 
 st.title(
-    "🛰️ ASTRA Intelligence Dashboard"
+    "🛰️ SCADE-X Intelligence Platform"
 )
 
 st.markdown(
     """
-Advanced Supply Chain Threat
-& Resilience Analytics
+Enterprise Supply Chain Risk,
+Process & Resilience Intelligence
 """
 )
 

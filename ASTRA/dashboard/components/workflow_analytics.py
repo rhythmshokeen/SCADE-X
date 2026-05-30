@@ -115,7 +115,7 @@ def show_workflow_analytics(
         """
 ### Why this matters
 
-ASTRA identifies repeated
+SCADE-X identifies repeated
 workflow patterns and
 quantifies:
 

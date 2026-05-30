@@ -137,7 +137,7 @@ def show_executive_summary(
 
     st.info(
         f"""
-### ASTRA Executive Assessment
+### SCADE-X Executive Assessment
 
 **Threat Level:** {threat_level}
 
